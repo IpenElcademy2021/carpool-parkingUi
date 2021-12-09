@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="529.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.parkingManageParkingController">
+   <left>
+      <VBox prefHeight="408.0" prefWidth="75.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="58.0" prefWidth="54.0">
+               <children>
+                  <ImageView fx:id="sidemenuParkingDashboard" onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/home_40px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Dashboard" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="sidemenuApplyParking" onMouseClicked="#switchToParkingApply" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/plus_40px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Apply for" />
+                  <Label text="parking" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="sidemenuManageParking" onMouseClicked="#switchToManageParking" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/carpool_40px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Propose &amp;" />
+                  <Label text="Manage" />
+                  <Label text="parking" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" onMouseClicked="#SendFeedBack" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="sidemenuCredits" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/talk_40px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Feedback" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ImageView fx:id="sidemenuCredits1" onMouseClicked="#ShowCredit" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/raising_hands_48px.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Credits" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="333.0">
+               <children>
+                  <HBox prefHeight="18.0" prefWidth="561.0">
+                     <children>
+                        <Label text="Logged in as :  " />
+                        <Label fx:id="labelLoggedVisa" layoutX="10.0" layoutY="10.0" text="XXX" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="145.0" prefWidth="319.0">
+                     <children>
+                        <ImageView fx:id="imageviewUser" fitHeight="136.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/portrait-white-man-isolated_53876-40306.jpg" />
+                           </image>
+                        </ImageView>
+                        <Region prefHeight="104.0" prefWidth="36.0" />
+                        <TextArea fx:id="textareaUserInfo" disable="true" prefHeight="131.0" prefWidth="162.0" promptText="User data" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="2.0" right="2.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="18.0" prefWidth="560.0">
+                     <children>
+                        <Label text="Manage incoming parking request:" textFill="#1eb3c4" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="164.0" prefWidth="560.0">
+                     <children>
+                        <TableView fx:id="tableviewDemand" onMouseClicked="#getSelectedRecord" prefHeight="145.0" prefWidth="307.0">
+                           <columns>
+                              <TableColumn fx:id="tablecolumnRequestId" prefWidth="34.40002363920212" text="ID" />
+                              <TableColumn fx:id="tablecolumnManageVisa" prefWidth="53.599979400634766" text="VISA" />
+                              <TableColumn fx:id="tablecolumnManageDate" prefWidth="215.1999938964844" text="Date" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="45.0" prefWidth="560.0">
+                     <children>
+                        <VBox prefHeight="35.0" prefWidth="304.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Date selected: " />
+                                    <Label fx:id="labelDateSelected" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="VISA selected: " />
+                                    <Label fx:id="labelVisaSelected" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="560.0" spacing="20.0">
+                     <children>
+                        <RadioButton fx:id="radioApprove" mnemonicParsing="false" text="Approve">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="tgApproveDecline" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="radioDecline" mnemonicParsing="false" text="Decline" toggleGroup="$tgApproveDecline" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="560.0">
+                     <children>
+                        <CheckBox fx:id="checkboxConfirmUpdateRequest" mnemonicParsing="false" text="Confirm">
+                           <padding>
+                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                           </padding></CheckBox>
+                        <Region prefHeight="26.0" prefWidth="143.0" />
+                        <Button mnemonicParsing="false" onAction="#setLeaveStatus" prefHeight="26.0" prefWidth="86.0" text="Process" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Region prefHeight="308.0" prefWidth="93.0" />
+            <VBox prefHeight="418.0" prefWidth="292.0">
+               <children>
+                  <HBox prefHeight="20.0" prefWidth="222.0">
+                     <children>
+                        <Label text="Propose a parking slot:" textFill="#1eb3c4" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="42.0" prefWidth="560.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label text="For date:" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="42.0" prefWidth="160.0">
+                           <children>
+                              <DatePicker fx:id="dpApplyFreeParking" prefHeight="26.0" prefWidth="128.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="560.0">
+                     <children>
+                        <CheckBox fx:id="checkboxProposeFreeParking" mnemonicParsing="false" text="Confirm">
+                           <padding>
+                              <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                           </padding></CheckBox>
+                        <Region prefHeight="36.0" prefWidth="70.0" />
+                        <Button mnemonicParsing="false" onAction="#ApplyFreeParking" prefHeight="26.0" prefWidth="86.0" text="Propose" />
+                     </children>
+                  </HBox>
+                  <Region prefHeight="29.0" prefWidth="262.0" />
+                  <VBox>
+                     <children>
+                        <Label text="Additional information:" textFill="#1eb3c4" />
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Approved Request" textFill="#2fff00" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="tableviewDemandA" onMouseClicked="#getSelectedRecordA" prefHeight="110.0" prefWidth="262.0">
+                           <columns>
+                              <TableColumn fx:id="tablecolumnRequestIdA" prefWidth="34.40002363920212" text="ID" />
+                              <TableColumn fx:id="tablecolumnManageVisaA" prefWidth="50.399967193603516" text="VISA" />
+                              <TableColumn fx:id="tablecolumnManageDateA" prefWidth="176.0" text="Date" />
+                           </columns>
+                        </TableView>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Declined Request" textFill="RED" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="222.0">
+                           <children>
+                              <TableView fx:id="tableviewDemandD" onMouseClicked="#getSelectedRecordD" prefHeight="96.0" prefWidth="262.0">
+                                 <columns>
+                                    <TableColumn fx:id="tablecolumnRequestIdD" prefWidth="34.40002363920212" text="ID" />
+                                    <TableColumn fx:id="tablecolumnManageVisaD" prefWidth="50.399967193603516" text="VISA" />
+                                    <TableColumn fx:id="tablecolumnManageDateD" prefWidth="176.00003662109373" text="Date" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="222.0" spacing="5.0">
+                           <children>
+                              <Button fx:id="buttonExportExcel" mnemonicParsing="false" onAction="#ExportToExcel" text="Export to Excel" />
+                              <Button fx:id="buttonDeleteRequest" layoutX="94.0" layoutY="12.0" mnemonicParsing="false" onAction="#DeleteRequest" text="Delete request" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                  <Label text="iPension Parking" textFill="#00aaff">
+                     <font>
+                        <Font name="Forte" size="25.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="54.0" prefWidth="459.0" />
+                  <ImageView fx:id="imageviewPower" fitHeight="54.0" fitWidth="358.0" onMouseClicked="#Exit" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/power.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Region prefWidth="71.0" />
+                  <Label text="Propose &amp; Manage parking" textFill="#459ac1">
+                     <font>
+                        <Font name="Forte" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelGlobalvisa" layoutX="10.0" layoutY="10.0" textFill="#00aaff">
+                     <font>
+                        <Font name="Forte" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="22.0" prefWidth="706.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="37.0" prefWidth="91.0">
+               <children>
+                  <Label fx:id="label_CS" alignment="CENTER" prefHeight="27.0" prefWidth="90.0" text="Current status :">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="434.0">
+               <children>
+                  <Label fx:id="labelCurrentStatus" textFill="RED">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#switchToLoginPageReturn" onMouseClicked="#switchToLoginPageReturn" prefHeight="26.0" prefWidth="106.0" text="Return to menu">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="43.0" prefWidth="76.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#switchToLoginPageLogOut" onMouseClicked="#switchToLoginPageReturn" prefHeight="26.0" prefWidth="67.0" text="Logout">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

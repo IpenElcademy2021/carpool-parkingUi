@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.loginPageController">
+   <children>
+      <HBox prefHeight="70.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="52.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/elca-logo.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="20.0" top="3.5" />
+               </HBox.margin>
+            </ImageView>
+            <Label prefHeight="54.0" prefWidth="372.0" text="Carpool &amp; Parking" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="85.0" top="5.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="82.0" prefWidth="600.0">
+         <children>
+            <VBox prefHeight="71.0" prefWidth="600.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/admin.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <TextField fx:id="textFieldUsername" prefHeight="30.0" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="10.0" top="2.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/lock.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <PasswordField fx:id="passwordFieldUsername" prefHeight="30.0" prefWidth="150.0">
+                           <HBox.margin>
+                              <Insets left="10.0" top="2.0" />
+                           </HBox.margin>
+                        </PasswordField>
+                        <Button mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="115.0" text="LOGIN">
+                           <HBox.margin>
+                              <Insets left="10.0" top="2.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="labelLoggedVisa">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="245.0" top="4.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="234.0" prefWidth="600.0">
+         <children>
+            <VBox prefHeight="282.0" prefWidth="297.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#switchToCarpoolDashboard" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/car.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="75.0" top="25.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label prefHeight="34.0" prefWidth="95.0" text=" Pooling">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="105.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="282.0" prefWidth="290.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" onMouseClicked="#switchToParkingDashboard" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/park.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets left="75.0" top="25.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label prefHeight="34.0" prefWidth="95.0" text="Parking">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="105.0" top="15.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

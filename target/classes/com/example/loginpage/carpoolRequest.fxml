@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.loginpage.CarpoolUserRequestController">
+   <top>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="51.0" prefWidth="351.0" text="iPension Carpool" textFill="#00aaff">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <HBox onMouseClicked="#logout" prefHeight="51.0" prefWidth="135.0">
+               <children>
+                  <Label prefHeight="48.0" prefWidth="82.0" text="Logout">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/logout.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <HBox.margin>
+                  <Insets left="445.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="308.0" prefWidth="534.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Car Pool Request">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="250.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="198.0" prefWidth="835.0">
+               <children>
+                  <TableView fx:id="tableView_request" onMouseClicked="#getSelectedRecord" prefHeight="179.0" prefWidth="725.0">
+                     <columns>
+                        <TableColumn fx:id="column_visa" prefWidth="61.600004577636355" text="Visa" />
+                        <TableColumn fx:id="column_date" prefWidth="71.20001220703125" text="Date" />
+                        <TableColumn fx:id="column_region" prefWidth="86.39996337890625" text="Region" />
+                        <TableColumn fx:id="column_pickup_point" prefWidth="99.20001220703125" text="PIckup Point" />
+                        <TableColumn fx:id="column_pickup_time" prefWidth="107.99996948242188" text="Pickup Time" />
+                        <TableColumn fx:id="column_departure_time" prefWidth="126.4000244140625" text="Departure Time" />
+                        <TableColumn fx:id="column_seat" maxWidth="85.60000000000002" prefWidth="80.800048828125" text="Seat" />
+                        <TableColumn fx:id="column_poolId" maxWidth="85.60000000000002" prefWidth="80.800048828125" text="PoolId" visible="false" />
+                     </columns>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </TableView>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="25.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="94.0" prefWidth="867.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                     <children>
+                        <Label text="Driver Visa" />
+                        <Label text="Date" />
+                        <Label text="Region" />
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                     <children>
+                        <Label fx:id="label_visa" prefHeight="24.0" prefWidth="152.0" textFill="#ed0000" />
+                        <Label fx:id="label_date" prefHeight="24.0" prefWidth="152.0" textFill="#ed0000" />
+                        <Label fx:id="label_region" prefHeight="24.0" prefWidth="152.0" textFill="#ed0000" />
+                     </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="95.0" prefWidth="132.0" spacing="20.0">
+                     <children>
+                        <Label text="Pickup Point" />
+                        <Label text="Pckup Time" />
+                        <Label text="Departure Time" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" top="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                     <children>
+                        <Label fx:id="label_pickup_point" prefHeight="24.0" prefWidth="152.0" textFill="#ed0000" />
+                        <Label fx:id="label_pickup_time" prefHeight="24.0" prefWidth="152.0" textFill="#ed0000" />
+                        <Label fx:id="label_departure_time" prefHeight="24.0" prefWidth="152.0" textFill="#ed0000" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" top="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="250.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="62.0" prefWidth="835.0">
+               <children>
+                  <Button fx:id="button_cancel" mnemonicParsing="false" onMouseClicked="#btnClear" prefHeight="30.0" prefWidth="80.0" text="Clear">
+                     <HBox.margin>
+                        <Insets left="250.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="button_request" mnemonicParsing="false" onAction="#createUserRequest" prefHeight="30.0" prefWidth="80.0" text="Request">
+                     <HBox.margin>
+                        <Insets left="150.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="button_request1" mnemonicParsing="false" onMouseClicked="#switchToMainMenu" prefHeight="30.0" prefWidth="80.0" text="Main Menu">
+                     <HBox.margin>
+                        <Insets left="140.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <VBox prefHeight="423.0" prefWidth="136.0" spacing="40.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="HBoxDashboard" onMouseClicked="#switchToPoolingDashboard" prefHeight="45.0" prefWidth="97.0">
+               <children>
+                  <ImageView fx:id="imageDashboard" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/home_40px.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label text="Home">
+                     <HBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="HBoxPropose" onMouseClicked="#switchToPoolingPropose" prefHeight="45.0" prefWidth="97.0">
+               <children>
+                  <ImageView fx:id="imagePropose" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/plus_40px.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label text="Propose">
+                     <HBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="HBoxRequest" onMouseClicked="#switchToPoolingUserRequest" prefHeight="45.0" prefWidth="97.0" style="-fx-background-color: #00aaff;">
+               <children>
+                  <ImageView fx:id="imageRequest" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/carpool_40px.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label text="Request">
+                     <HBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox fx:id="HBoxManage" onMouseClicked="#switchToPoolingManage" prefHeight="45.0" prefWidth="97.0">
+               <children>
+                  <ImageView fx:id="imageManage" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/manage.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <Label text="Manage">
+                     <HBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
