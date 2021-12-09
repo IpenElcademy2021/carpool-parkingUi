@@ -262,6 +262,7 @@ public class parkingManageParkingController {
                 labelCurrentStatus.setText(response);
                 logger.debug(response);
             }
+            checkboxProposeFreeParking.setSelected(false);
         }
         else
         {

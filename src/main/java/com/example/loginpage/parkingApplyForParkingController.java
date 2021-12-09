@@ -153,6 +153,7 @@ public class parkingApplyForParkingController {
             String sendEmailTitle = "Hello " + drivervisa + ", You got a new request from " + globalVisa;
             String sendEmailMsg = "You have a new parking request from " + globalVisa + ". Please check your iPension Carpool&Parking Application. - Elcademy";
             sendEmail.sendEmailNotfication(sendEmailTitle, sendEmailMsg, drivervisa);
+            checkboxConfirmApplyParking.setSelected(false);
 
             logger.debug(response);
             labelCurrentStatus.setText("Email sent to car owner.");
