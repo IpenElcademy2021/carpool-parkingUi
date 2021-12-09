@@ -26,7 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-
+import org.slf4j.*;
 
 import java.awt.*;
 import java.io.IOException;
@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class parkingDashboardController {
+    //OOP
     MethodClass methodClass = new MethodClass();
-    SendEmail sendEmail = new SendEmail();
 
     @FXML
     private TableColumn tablecolumnDate, tablecolumnParkingSlot, tablecolumnStatus, tablecolumnCourtesyof, tablecolumnParkingOParkingSlot, tablecolumnParkingOName, tablecolumnParkingOPhoneNumber, tablecolumnParkingOVISA;
@@ -63,12 +63,8 @@ public class parkingDashboardController {
     Image globaluserImage;
     List<String> carUsersArray = new ArrayList<String>();
     ObservableList<RequestUserCarOwners> globalData = FXCollections.observableArrayList();
+    private final Logger logger = LoggerFactory.getLogger(parkingDashboardController.class);
 
-
-    @FXML
-    protected void initialize() throws IOException {
-
-    }
 
     public void setup(String globalvisa) throws IOException {
 
@@ -80,29 +76,28 @@ public class parkingDashboardController {
         //Changes Image of User and his Manager
         imageviewUser.setImage(globaluserImage);
 
+        //Retrieving Table User data
         JSONObject jsonUserObject = methodClass.findUserbyVisa(globalvisa);
 
         String nom = jsonUserObject.get("name").toString();
         String address = jsonUserObject.get("address").toString();
         String phoneNumber = jsonUserObject.get("phoneNumber").toString();
 
+        //Setting Table User data to Textfield
         globalTextAreaData = "Nom: " + nom + "\n" +
                 "Address: " + address + "\n" +
                 "Mobile: "  + phoneNumber + "\n";
 
         textareaUserInfo.setText(globalTextAreaData);
 
-        //populating tableview
+        //Populating tableview
         ObservableList<RequestUserCarOwners> data = methodClass.getMyRequestByUser(labelLoggedVisa.getText());
         ObservableList<RequestUserCarOwners> carusersdata = methodClass.searchAllCarOwners();
 
+        //Adding CarOwner's Users to an Array and Check if Logged User has car
         Iterator<RequestUserCarOwners> iterator = carusersdata.iterator();
         while (iterator.hasNext()) {
             carUsersArray.add(iterator.next().getVisa());
-        }
-
-        for (int counter = 0; counter < carUsersArray.size(); counter++) {
-            System.out.println(carUsersArray.get(counter));
         }
 
         if(carUsersArray.contains(globalvisa.toUpperCase()))
@@ -113,21 +108,22 @@ public class parkingDashboardController {
             tableviewDashboard.setManaged(false);
             labelAboveTVDashboard.setVisible(false);
             labelAboveTVDashboard.setManaged(false);
+            labelCurrentStatus.setText("CarOwner Detected, Apply parking disabled.");
         }
         else
         {
             hasCarBoolean = false;
             sidemenuManageParking.setDisable(true);
+            labelCurrentStatus.setText("Non-CarOwner Detected, Manage parking disabled.");
         }
         carUsersArray.clear();
 
+
+        //Populating table
         tablecolumnDate.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("date"));
         tablecolumnStatus.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("status"));
         tablecolumnCourtesyof.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("driverVisa"));
-
         tableviewDashboard.setItems(data);
-
-
 
         tablecolumnParkingOName.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("name"));
         tablecolumnParkingOParkingSlot.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("parkingSlot"));
@@ -135,7 +131,7 @@ public class parkingDashboardController {
         tablecolumnParkingOVISA.setCellValueFactory(new PropertyValueFactory<RequestUserCarOwners,String>("visa"));
         tableviewParkingOwners.setItems(carusersdata);
 
-
+        //Filtering table
         globalData = data;
         FilteredList<RequestUserCarOwners> filteredData = new FilteredList(this.globalData, (b) -> {
             return true;
@@ -163,13 +159,41 @@ public class parkingDashboardController {
         SortedList<RequestUserCarOwners> sortedData = new SortedList(filteredData);
         sortedData.comparatorProperty().bind(this.tableviewDashboard.comparatorProperty());
         this.tableviewDashboard.setItems(sortedData);
+
+        //Logging
         labelCurrentStatus.setText("Your parking dashboard loaded successfully!");
+        logger.info("Dashboard loaded successfully");
     }
 
     public void clearFilter() {
         textfieldFilterFreeParking.clear();
     }
 
+    public void SendFeedBack() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Feedback.fxml"));
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setTitle("Send feedback");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void ShowCredit() throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URI("https://github.com/IpenElcademy2021"));
+        logger.info("Opening browser");
+    }
+
+    public void Exit() {
+        methodClass.Exit();
+        logger.debug("Exit method executed from methodClass");
+    }
+
+
+
+
+    //Switching and Communicating with other Scenes/FXMLs
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
         labelCurrentStatus.setText("Already in Parking Dashboard");
     }
@@ -221,25 +245,6 @@ public class parkingDashboardController {
         stage.setScene(scene);
         loginPageController.setup(globalVisa);
         stage.show();
-    }
-
-    public void SendFeedBack() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Feedback.fxml"));
-        Scene scene = new Scene(root);
-
-        Stage stage = new Stage();
-        stage.setTitle("Send feedback");
-        stage.setScene(scene);
-
-        stage.show();
-    }
-
-    public void ShowCredit() throws IOException, URISyntaxException {
-        Desktop.getDesktop().browse(new URI("https://github.com/IpenElcademy2021"));
-    }
-
-    public void Exit() {
-        methodClass.Exit();
     }
 
 }

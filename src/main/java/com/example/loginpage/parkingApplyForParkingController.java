@@ -28,6 +28,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import org.slf4j.*;
 
 
 import java.awt.*;
@@ -39,16 +40,16 @@ import java.util.List;
 
 public class parkingApplyForParkingController {
     //OOP
-    OkHttpGet okHttpGet = new OkHttpGet();
     MethodClass methodClass = new MethodClass();
     OkHttpPost okHttpPost = new OkHttpPost();
     SendEmail sendEmail = new SendEmail();
+
     @FXML
     private TableColumn tablecolumnDateFree, tablecolumnDriverVisa, tablecolumnParkingSlot;
     @FXML
     private TableView tableviewFreeSlots;
     @FXML
-    private Label labelSelectedDay, labelSelectedParkingslot, labelCurrentStatus, labelGlobalvisa;
+    private Label labelSelectedDay, labelSelectedParkingslot, labelCurrentStatus, labelLoggedVisa;
     @FXML
     private CheckBox checkboxConfirmApplyParking;
     @FXML
@@ -62,40 +63,42 @@ public class parkingApplyForParkingController {
     private Scene scene;
     private Parent root;
 
-    String globalVisa;
+    String globalVisa, globalTextAreaData;
     Image globaluserImage;
     Boolean hasCarBoolean;
-    String globalTextAreaData;
     ObservableList<FreeParkingUserCarOwners> globalData = FXCollections.observableArrayList();
+    private final Logger logger = LoggerFactory.getLogger(parkingApplyForParkingController.class);
+
 
     public void setup(String globalvisa, Boolean phasCarBoolean, Image visaImage, String sglobalTextAreaData) throws IOException {
+        //Check if user has car
         if(phasCarBoolean)
         {
             sidemenuApplyParking.setDisable(true);
-            labelCurrentStatus.setText("You are a car owner!");
+            logger.debug("CarOwner Detected, Apply parking disabled.");
         }
         else
         {
             sidemenuManageParking.setDisable(true);
-            labelCurrentStatus.setText("You do not havea car!");
+            logger.debug("Non-CarOwner Detected, Manage parking disabled.");
         }
 
-        labelGlobalvisa.setText(globalvisa);
+        //Initial setup
+        labelLoggedVisa.setText(globalvisa);
         globalTextAreaData = sglobalTextAreaData;
-        globalVisa = labelGlobalvisa.getText();
+        globalVisa = labelLoggedVisa.getText();
         textareaUserInfo.setText(sglobalTextAreaData);
         imageviewUser.setImage(visaImage);
 
-        //populating tableview
+        //Populating tableview
         ObservableList<FreeParkingUserCarOwners> data = methodClass.getAllFreeParking();
         globalData = data;
+
         tablecolumnDateFree.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("date"));
         tablecolumnDriverVisa.setCellValueFactory(new PropertyValueFactory<FreeParking,String>("visa"));
-
-
         tableviewFreeSlots.setItems(data);
 
-
+        //Filtering table
         FilteredList<FreeParkingUserCarOwners> filteredData = new FilteredList(this.globalData, (b) -> {
             return true;
         });
@@ -120,11 +123,71 @@ public class parkingApplyForParkingController {
         SortedList<FreeParkingUserCarOwners> sortedData = new SortedList(filteredData);
         sortedData.comparatorProperty().bind(this.tableviewFreeSlots.comparatorProperty());
         this.tableviewFreeSlots.setItems(sortedData);
-        labelCurrentStatus.setText("Your apply parking dashboard loaded successfully!");
+
+        //logging
+        labelCurrentStatus.setText("Your apply parking page loaded successfully!");
+        logger.info("Apply parking loaded successfully");
+    }
+
+    //Listening and getting the current selected record
+    String drivervisa = "";
+    public void getSelectedRecord(MouseEvent mouseEvent) throws IOException {
+        FreeParkingUserCarOwners freeParkingUserCarOwners = (FreeParkingUserCarOwners) tableviewFreeSlots.getSelectionModel().getSelectedItem();
+        labelSelectedDay.setText(freeParkingUserCarOwners.getDate());
+        drivervisa = freeParkingUserCarOwners.getVisa();
+    }
+
+    //
+    public void RequestFreeParking() throws IOException {
+        if(checkboxConfirmApplyParking.isSelected() && labelSelectedDay.getText() != "")
+        {
+            String newFreeParkingjson = "    {\n        \"date\": \"" + labelSelectedDay.getText() + "\",\n" +
+                    "        \"status\": \"" + "Applied" + "\",\n" +
+                    "        \"driverVisa\": \"" + drivervisa + "\",\n" +
+                    "        \"user\": {\"visa\":\"" + globalVisa + "\"}\n" +
+                    "    }";
+
+            String response = okHttpPost.post("http://localhost:8080/cppk/addARequest/", newFreeParkingjson);
+
+            //Sending Email to the CarOwner
+            String sendEmailTitle = "Hello " + drivervisa + ", You got a new request from " + globalVisa;
+            String sendEmailMsg = "You have a new parking request from " + globalVisa + ". Please check your iPension Carpool&Parking Application. - Elcademy";
+            sendEmail.sendEmailNotfication(sendEmailTitle, sendEmailMsg, drivervisa);
+
+            logger.debug(response);
+            labelCurrentStatus.setText("Email sent to car owner.");
+        }
+        else
+        {
+            methodClass.messageBox("Please check the Checkbox before Requesting a parking slot", "User error");
+            logger.error("Checkbox error");
+            labelCurrentStatus.setText("Checkbox error");
+        }
+    }
+
+    public void SendFeedBack() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Feedback.fxml"));
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setTitle("Send feedback");
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void ShowCredit() throws IOException, URISyntaxException {
+        Desktop.getDesktop().browse(new URI("https://github.com/IpenElcademy2021"));
+    }
+
+    public void Exit() {
+        methodClass.Exit();
     }
 
 
 
+
+    //Switching and Communicating with other Scenes/FXMLs
     public void switchToLoginPageLogOut(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
         root = loader.load();
@@ -148,45 +211,6 @@ public class parkingApplyForParkingController {
         loginPageController.setup(globalVisa);
         stage.show();
     }
-
-    @FXML
-    protected void initialize() throws IOException {
-
-
-
-    }
-
-    String drivervisa = "";
-    public void getSelectedRecord(MouseEvent mouseEvent) throws IOException {
-        FreeParkingUserCarOwners freeParkingUserCarOwners = (FreeParkingUserCarOwners) tableviewFreeSlots.getSelectionModel().getSelectedItem();
-        labelSelectedDay.setText(freeParkingUserCarOwners.getDate());
-        drivervisa = freeParkingUserCarOwners.getVisa();
-    }
-
-    public void RequestFreeParking() throws IOException {
-        if(checkboxConfirmApplyParking.isSelected() && labelSelectedDay.getText() != "")
-        {
-            String newFreeParkingjson = "    {\n        \"date\": \"" + labelSelectedDay.getText() + "\",\n" +
-                    "        \"status\": \"" + "Applied" + "\",\n" +
-                    "        \"driverVisa\": \"" + drivervisa + "\",\n" +
-                    "        \"user\": {\"visa\":\"" + globalVisa + "\"}\n" +
-                    "    }";
-
-            System.out.println(newFreeParkingjson);
-            String response = okHttpPost.post("http://localhost:8080/cppk/addARequest/", newFreeParkingjson);
-
-            String sendEmailTitle = "Hello " + drivervisa + ", You got a new request from " + globalVisa;
-            String sendEmailMsg = "You have a new parking request from " + globalVisa + ". Please check your iPension Carpool&Parking Application. - Elcademy";
-            sendEmail.sendEmailNotfication(sendEmailTitle, sendEmailMsg, drivervisa);
-            labelCurrentStatus.setText("Email sent to car owner.");
-        }
-        else
-        {
-            methodClass.messageBox("Please check the Checkbox before Requesting a parking slot", "User error");
-            labelCurrentStatus.setText("Checkbox error");
-        }
-    }
-
 
     public void switchToParkingDashboard(MouseEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("parkingDashboard.fxml"));
@@ -215,26 +239,5 @@ public class parkingApplyForParkingController {
         stage.setScene(scene);
         parkingManageParkingController.setup(globalVisa, hasCarBoolean, globaluserImage, globalTextAreaData);
         stage.show();
-    }
-
-
-
-    public void SendFeedBack() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Feedback.fxml"));
-        Scene scene = new Scene(root);
-
-        Stage stage = new Stage();
-        stage.setTitle("Send feedback");
-        stage.setScene(scene);
-
-        stage.show();
-    }
-
-    public void ShowCredit() throws IOException, URISyntaxException {
-        Desktop.getDesktop().browse(new URI("https://github.com/IpenElcademy2021"));
-    }
-
-    public void Exit() {
-        methodClass.Exit();
     }
 }

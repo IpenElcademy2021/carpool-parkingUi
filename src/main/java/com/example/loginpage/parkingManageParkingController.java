@@ -271,6 +271,12 @@ public class parkingManageParkingController {
         }
     }
 
+    public void ExportToExcel() {
+        methodClass.exportToExcel(tableviewDemandA, tableviewDemandD);
+        labelCurrentStatus.setText("An excel file has been created!");
+        logger.debug("Excel file created");
+    }
+
     public void SendFeedBack() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Feedback.fxml"));
         Scene scene = new Scene(root);
@@ -288,12 +294,6 @@ public class parkingManageParkingController {
 
     public void Exit() {
         methodClass.Exit();
-    }
-
-    public void ExportToExcel() {
-        methodClass.exportToExcel(tableviewDemandA, tableviewDemandD);
-        labelCurrentStatus.setText("An excel file has been created!");
-        logger.debug("Excel file created");
     }
 
 
@@ -352,6 +352,4 @@ public class parkingManageParkingController {
         loginPageController.setup(globalVisa);
         stage.show();
     }
-
-
 }
