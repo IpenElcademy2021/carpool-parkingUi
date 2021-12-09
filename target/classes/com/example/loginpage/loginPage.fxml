@@ -37,9 +37,9 @@
          <children>
             <VBox prefHeight="71.0" prefWidth="600.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox fx:id="HboxLogin" prefHeight="40.0" prefWidth="600.0">
                      <children>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageViewAdmin" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/admin.png" />
                            </image>
@@ -52,7 +52,7 @@
                               <Insets left="10.0" top="2.0" />
                            </HBox.margin>
                         </TextField>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imageViewKey" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/lock.png" />
                            </image>
@@ -65,7 +65,7 @@
                               <Insets left="10.0" top="2.0" />
                            </HBox.margin>
                         </PasswordField>
-                        <Button mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="115.0" text="LOGIN">
+                        <Button fx:id="buttonLogin" defaultButton="true" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="115.0" text="LOGIN">
                            <HBox.margin>
                               <Insets left="10.0" top="2.0" />
                            </HBox.margin>
@@ -75,23 +75,31 @@
                         </Button>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="36.0" prefWidth="600.0">
                      <children>
                         <Label fx:id="labelLoggedVisa">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="245.0" top="4.0" />
+                              <Insets left="200.0" top="4.0" />
                            </HBox.margin>
                         </Label>
+                        <Button fx:id="buttonLogout" cancelButton="true" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="30.0" prefWidth="115.0" text="LOGOUT" visible="false">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="25.0" top="2.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                   </HBox>
                </children>
             </VBox>
          </children>
       </HBox>
-      <HBox prefHeight="234.0" prefWidth="600.0">
+      <HBox prefHeight="239.0" prefWidth="600.0">
          <children>
             <VBox prefHeight="282.0" prefWidth="297.0">
                <children>
