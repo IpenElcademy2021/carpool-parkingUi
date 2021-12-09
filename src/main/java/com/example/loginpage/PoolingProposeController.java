@@ -116,6 +116,7 @@ public class PoolingProposeController {
             log.error("Field region is empty");
         }
 
+
     }
 
     public void addPooling() throws IOException {
@@ -141,6 +142,12 @@ public class PoolingProposeController {
 
         MessageBox("New Pooling added", "Propose Pooling");
         log.info("New Pooling added");
+
+        textField_departure_time.setText("");
+        textField_pickup_point.setText("");
+        textField_pickup_time.setText("");
+        textField_region.setText("");
+
     }
 
 

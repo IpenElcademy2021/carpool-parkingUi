@@ -113,7 +113,7 @@ public class CarpoolUserRequestController {
         seat = Integer.parseInt(poolingPropose.getSeat());
     }
 
-    public void createUserRequest(ActionEvent actionEvent) throws IOException{
+    public void createUserRequest(MouseEvent e) throws IOException{
 
         if (poolingID >0){
             if (seat>0) {
@@ -145,6 +145,7 @@ public class CarpoolUserRequestController {
         }
 
         setup(globalVisa, hasCarBoolean);
+        btnClear(e);
     }
 
     private void MessageBox(String message, String title) {
