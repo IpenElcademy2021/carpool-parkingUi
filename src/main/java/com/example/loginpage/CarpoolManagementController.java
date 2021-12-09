@@ -221,6 +221,11 @@ public class CarpoolManagementController {
 
 
         setup(globalVisa, hasCarBoolean);
+
+        textField_visa.setText("");
+        textField_date.setText("");
+        comboBox_status.setPromptText("Pending");
+        textArea_comment.setText("");
     }
 
 

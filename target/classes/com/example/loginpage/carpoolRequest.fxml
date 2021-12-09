@@ -143,7 +143,7 @@
                         <Insets left="250.0" top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="button_request" mnemonicParsing="false" onAction="#createUserRequest" prefHeight="30.0" prefWidth="80.0" text="Request">
+                  <Button fx:id="button_request" mnemonicParsing="false" onMouseClicked="#createUserRequest" prefHeight="30.0" prefWidth="80.0" text="Request">
                      <HBox.margin>
                         <Insets left="150.0" top="5.0" />
                      </HBox.margin>
