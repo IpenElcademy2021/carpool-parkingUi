@@ -5,6 +5,8 @@ import com.example.loginpage.models.PoolingPropose;
 import com.example.loginpage.models.User;
 import com.example.loginpage.oop.PoolingMethodClass;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,6 +68,24 @@ public class PoolingProposeController {
         ObservableList<Integer> seats = FXCollections.observableArrayList(1, 2, 3);
         comboxBox_seat.setItems(seats);
         comboxBox_seat.getSelectionModel().selectFirst();
+
+        textField_pickup_time.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,2}([\\:]\\d{0,2})?")) {
+                    textField_pickup_time.setText(oldValue);
+                }
+            }
+        });
+
+        textField_departure_time.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,2}([\\:]\\d{0,2})?")) {
+                    textField_departure_time.setText(oldValue);
+                }
+            }
+        });
 
         datePicker_date.setValue(LocalDate.now());
 
